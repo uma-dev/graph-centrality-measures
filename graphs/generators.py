@@ -1,4 +1,5 @@
 import networkx as nx
+import random
 
 
 def get_synthetic_graphs():
@@ -18,3 +19,29 @@ def get_synthetic_graphs():
     graphs.append(("Directed", np_random_graph))
 
     return graphs
+
+
+def generate_example_graph() -> nx.Graph:
+    """
+    Generate a synthetic graph for the assignment.
+    You can modify this to switch models (ER, WS, BA, SBM...).
+    """
+    while True:
+        G = nx.gnp_random_graph(n=100, p=0.08, directed=True)
+        if nx.is_strongly_connected(G):
+            for u, v in G.edges():
+                G[u][v]["capacity"] = random.randint(1, 10)
+            print("[INFO] Generated strongly connected graph with capacities")
+            return G
+
+
+def save_graph_graphml(graph: nx.Graph, path: str) -> None:
+    """
+    Save graph to .graphml format for later use.
+
+    Args:
+        graph: Graph
+        path: output path (.graphml)
+    """
+    nx.write_graphml(graph, path)
+    print(f"[INFO] Graph saved to {path}")
