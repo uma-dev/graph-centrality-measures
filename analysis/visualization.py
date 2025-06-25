@@ -88,3 +88,45 @@ def visualize_graph_centralities_grid(
     plt.close()
 
     print(f"[INFO] Centralities grid saved: {output_path}")
+
+
+def plot_test_graph(graph, output_path="output/x_ray/graph.png", title="Test Graph"):
+    plt.figure(figsize=(12, 10))
+
+    pos = nx.spring_layout(graph, seed=42, k=1.5)
+    is_directed = graph.is_directed()
+
+    # Draw nodes and edges
+    nx.draw_networkx_nodes(
+        graph,
+        pos,
+        node_size=180,
+        node_color="skyblue",
+        edgecolors="black",
+        linewidths=0.4,
+    )
+    nx.draw_networkx_edges(
+        graph,
+        pos,
+        arrowstyle="->" if is_directed else "-",
+        arrows=is_directed,
+        alpha=0.5,
+        width=0.6,
+        edge_color="gray",
+    )
+    nx.draw_networkx_labels(graph, pos, font_size=8)
+
+    if nx.get_edge_attributes(graph, "capacity"):
+        edge_labels = nx.get_edge_attributes(graph, "capacity")
+        nx.draw_networkx_edge_labels(
+            graph, pos, edge_labels=edge_labels, font_size=6, label_pos=0.5
+        )
+
+    plt.title(title)
+    plt.axis("off")
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+    plt.tight_layout()
+    plt.savefig(output_path)
+    plt.close()
+
+    print(f"[INFO] Graph plotted and saved to: {output_path}")

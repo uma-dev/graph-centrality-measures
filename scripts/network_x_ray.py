@@ -7,6 +7,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from graphs.generators import generate_example_graph, save_graph_graphml
 from graphs.loaders import load_graph
+
+from analysis.visualization import plot_test_graph
+
 from metrics.degree_correlation import degree_correlation_coefficient
 from metrics.clustering import global_clustering, local_clustering
 from metrics.traversal import bfs, multi_source_bfs
@@ -43,6 +46,8 @@ def main():
         print(f"[INFO] Graph doesnt exists at {output_path}. Generating.")
         graph = generate_example_graph()
         save_graph_graphml(graph, output_path)
+
+    plot_test_graph(graph, output_path="output/x_ray/graph.png", title="Test graph")
 
     nodes = list(graph.nodes())
     u, v = nodes[0], nodes[1]

@@ -27,12 +27,12 @@ def generate_example_graph() -> nx.Graph:
     You can modify this to switch models (ER, WS, BA, SBM...).
     """
     while True:
-        G = nx.gnp_random_graph(n=100, p=0.08, directed=True)
-        if nx.is_strongly_connected(G):
-            for u, v in G.edges():
-                G[u][v]["capacity"] = random.randint(1, 10)
-            print("[INFO] Generated strongly connected graph with capacities")
-            return G
+        graph = nx.gnp_random_graph(n=30, p=0.06, directed=True)
+        if nx.is_strongly_connected(graph):
+            for u, v in graph.edges():
+                graph[u][v]["capacity"] = random.randint(1, 10)
+            print("[INFO] graphenerated strongly connected graph with capacities")
+            return graph
 
 
 def save_graph_graphml(graph: nx.Graph, path: str) -> None:
