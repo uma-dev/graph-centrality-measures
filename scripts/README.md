@@ -34,7 +34,7 @@ graph_centrality_measures/
 
 ---
 
-## 🚀 What the Main Script (`solve_assignment.py`) Does
+## 🚀 What the X Ray Script Does
 
 1. **Load or generate** the example network:
 
